@@ -1,0 +1,444 @@
+/* ============ 0. ПЕРЕМЕННЫЕ И СБРОС ============ */
+:root {
+    --color-main: #2b6cb0;
+    --color-main-dark: #2c5282;
+    --color-accent: #ffd700;
+    --color-dark: #1a202c;
+    --color-text: #2d3748;
+    --color-bg: #f7fafc;
+    --color-card: #ffffff;
+    --color-border: #cbd5e0;
+    --radius: 12px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Тёмная тема: переключается кнопкой через <html class="dark"> */
+html.dark {
+    --color-main: #63b3ed;
+    --color-main-dark: #4299e1;
+    --color-text: #e2e8f0;
+    --color-bg: #1a202c;
+    --color-card: #2d3748;
+    --color-border: #4a5568;
+    --color-dark: #0f1117;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }   /* плавная прокрутка к якорям */
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text);
+    background: var(--color-bg);
+    transition: background 0.3s, color 0.3s; /* Плавный переход цвета */
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* ============ 1. ШАПКА И НАВИГАЦИЯ ============ */
+header {
+    position: relative;
+    background: linear-gradient(135deg, #1e3a8a, #9b2c2c); /* Перелив из глубокого синего в тёмно-красный */
+    color: #fff;
+    text-align: center;
+    padding: 80px 20px; /* Увеличили отступы, чтобы шапка «дышала» */
+}
+
+header h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.02em; /* Сближенные буквы смотрятся профессиональнее */
+    margin: 24px 0 8px;
+}
+
+
+header p { margin: 0; opacity: 0.9; }
+
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+nav a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+nav a:hover { color: var(--color-accent); }
+
+/* Кнопка смены темы в углу шапки */
+#theme-toggle {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#theme-toggle:hover { background: rgba(255, 255, 255, 0.35); }
+
+/* ============ 2. ОСНОВНОЙ КОНТЕНТ ============ */
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+section { margin: 56px 0; }
+
+section h2 {
+    color: var(--color-text);
+    border-bottom: 3px solid var(--color-main);
+    padding-bottom: 8px;
+    display: inline-block;
+    margin-top: 0;
+}
+
+/* «Обо мне»: фото слева, текст справа */
+/* «Обо мне»: фото слева, текст справа */
+#about {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+}
+
+#about img {
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    box-shadow: var(--shadow);
+}
+
+#about h2 { display: block; border: none; padding: 0; }
+
+/* Стили для новой кнопки-картинки на противоположной стороне */
+#avatar-toggle-btn {
+    margin-left: auto; /* Авто-отступ слева прижмет кнопку к правому краю */
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#avatar-toggle-btn:hover {
+    transform: scale(1.1); /* Легкий эффект увеличения при наведении */
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+    #about { flex-direction: column; text-align: center; }
+    #avatar-toggle-btn { margin-left: 0; margin-top: 16px; } /* На мобильных центруем */
+}
+
+
+/* ============ 3. НАВЫКИ ============ */
+#skills ul { padding-left: 20px; }
+#skills li { padding: 6px 0; }
+
+/* ============ 4. КАРТОЧКИ ПРОЕКТОВ ============ */
+#projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+#projects h2 { grid-column: 1 / -1; }   /* заголовок на всю ширину */
+
+article {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+}
+
+article:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+article h3 { margin-top: 0; }
+
+article a {
+    margin-top: auto;              /* прижать ссылку к низу карточки */
+    color: var(--color-main);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+article a:hover { text-decoration: underline; }
+
+/* ============ 5. ФОРМА И СООБЩЕНИЕ ============ */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--color-card);
+    padding: 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    max-width: 480px;
+    transition: background 0.3s;
+}
+
+label { font-weight: 600; }
+
+input, textarea {
+    padding: 10px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font: inherit;
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--color-main);
+    box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.25);
+}
+
+input:invalid:not(:placeholder-shown),
+textarea:invalid:not(:placeholder-shown) {
+    border-color: #e53e3e;
+}
+
+button {
+    background: var(--color-main);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover { background: var(--color-main-dark); }
+
+/* Сообщение об успешной отправке (показывается через класс .visible из JS) */
+#form-status {
+    max-width: 480px;
+    margin-top: 12px;
+    border-radius: 8px;
+    color: #2f855a;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+#form-status.visible {
+    opacity: 1;
+    padding: 12px;
+    background: #f0fff4;
+}
+
+html.dark #form-status.visible {
+    background: #1c452f;
+    color: #9ae6b4;
+}
+
+/* ============ 6. ПОДВАЛ ============ */
+footer {
+    background: var(--color-dark);
+    color: #a0aec0;
+    text-align: center;
+    padding: 24px;
+    margin-top: 60px;
+    transition: background 0.3s;
+}
+
+/* ============ 7. КНОПКА «НАВЕРХ» ============ */
+#to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-main);
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    visibility: hidden;             /* скрыта, пока не прокрутили */
+    transition: opacity 0.3s, visibility 0.3s, background 0.3s;
+}
+
+#to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============ 8. АДАПТИВНОСТЬ ============ */
+@media (max-width: 600px) {
+    header { padding: 48px 16px 40px; }
+    nav { gap: 14px; font-size: 0.9rem; }
+    #about { flex-direction: column; text-align: center; }
+    section { margin: 40px 0; }
+}
+/* ====================================================
+   ОБНОВЛЕННЫЙ БЛОК СТИЛЕЙ ДЛЯ ВЕРСИИ СЛАБОВИДЯЩИХ
+   ==================================================== */
+
+/* Стилизация кнопок в шапке в обычном режиме (выстраиваем их в ряд) */
+#theme-toggle, 
+#accessibility-toggle {
+    position: static !important; /* Отменяем абсолютное позиционирование, чтобы кнопки не перекрывали клики */
+    display: inline-block !important;
+    vertical-align: middle;
+    margin: 10px 8px !important;
+    padding: 10px 16px !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    height: auto !important;
+    width: auto !important;
+    font-size: 16px !important;
+    transition: all 0.2s ease;
+}
+
+#theme-toggle:hover, 
+#accessibility-toggle:hover {
+    background: #fff !important;
+    color: #1e3a8a !important;
+}
+
+/* Специальный стиль для круглой кнопки-луны, чтобы она не ломала общую строку */
+#theme-toggle {
+    border-radius: 50% !important;
+    padding: 10px !important;
+    width: 44px !important;
+    height: 44px !important;
+}
+
+/* --- ЭФФЕКТЫ ПРИ ВКЛЮЧЕНИИ РЕЖИМА СЛАБОВИДЯЩИХ --- */
+body.accessibility-mode {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 24px !important;
+    line-height: 1.6 !important;
+}
+
+/* Перекрашиваем шапку в чистый белый цвет */
+body.accessibility-mode header {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 40px 20px !important;
+    border-bottom: 4px solid #000000 !important;
+}
+
+body.accessibility-mode h1, 
+body.accessibility-mode h2, 
+body.accessibility-mode h3,
+body.accessibility-mode section h2,
+body.accessibility-mode #about h2 {
+    color: #000000 !important;
+    border-color: #000000 !important;
+}
+
+body.accessibility-mode header p {
+    color: #000000 !important;
+    opacity: 1 !important;
+}
+
+body.accessibility-mode nav a {
+    color: #0000ee !important;
+    text-decoration: underline !important;
+    font-size: 24px !important;
+}
+
+/* Карточки проектов, секции контента и форма */
+body.accessibility-mode main,
+body.accessibility-mode article, 
+body.accessibility-mode form {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 3px solid #000000 !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+body.accessibility-mode article a {
+    color: #0000ee !important;
+    text-decoration: underline !important;
+}
+
+body.accessibility-mode input, 
+body.accessibility-mode textarea {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+}
+
+body.accessibility-mode footer {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border-top: 4px solid #000000 !important;
+}
+
+/* Стиль интерактивной кнопки спецрежима при его активации */
+body.accessibility-mode #accessibility-toggle {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 3px solid #000000 !important;
+}
+
+/* Скрываем кнопку стандартной темной темы, когда активен режим для слабовидящих */
+body.accessibility-mode #theme-toggle {
+    display: none !important;
+}
+#tts-toggle {
+    position: static !important;
+    display: inline-block !important;
+    vertical-align: middle;
+    margin: 10px 8px !important;
+    padding: 10px 16px !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    font-size: 16px !important;
+    transition: all 0.2s ease;
+}
+
+#tts-toggle:hover {
+    background: #fff !important;
+    color: #1e3a8a !important;
+}
+
+/* Стили кнопки внутри версии для слабовидящих */
+body.accessibility-mode #tts-toggle {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 3px solid #000000 !important;
+}
